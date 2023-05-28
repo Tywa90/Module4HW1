@@ -1,4 +1,6 @@
+using System;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ALevelSample.Config;
 using ALevelSample.Dtos;
@@ -16,7 +18,7 @@ public class UserService : IUserService
     private readonly ILogger<UserService> _logger;
     private readonly ApiOption _options;
     private readonly string _userApi = "api/users/";
-    private readonly string _userList = "api/users?page=2";
+    private readonly string _userList = "api/users?page=";
 
     public UserService(
         IInternalHttpClientService httpClientService,
@@ -30,23 +32,23 @@ public class UserService : IUserService
 
     public async Task<UserDto> GetUserById(int id)
     {
-      var result = await _httpClientService.SendAsync<BaseResponse<UserDto>, object>($"{_options.Host}{_userApi}{id}", HttpMethod.Get);
-
-      if (result?.Data != null)
-      {
-          _logger.LogInformation($"User with id = {result.Data.Id} was found");
-      }
-
-      return result?.Data;
-    }
-
-    public async Task<UserDto> GetUsersList(int id)
-    {
-        var result = await _httpClientService.SendAsync<BaseResponse<UserDto>, object>($"{_options.Host}{_userList}", HttpMethod.Get);
+        var result = await _httpClientService.SendAsync<BaseResponse<UserDto>, object>($"{_options.Host}{_userApi}{id}", HttpMethod.Get);
 
         if (result?.Data != null)
         {
             _logger.LogInformation($"User with id = {result.Data.Id} was found");
+        }
+
+        return result?.Data;
+    }
+
+    public async Task<UserDto[]> GetUsersList(int page)
+    {
+        var result = await _httpClientService.SendAsync<UserListResponse<UserDto>, object>($"{_options.Host}{_userList}{page}", HttpMethod.Get);
+
+        if (result?.Data != null)
+        {
+            _logger.LogInformation($"On page {page} was found {result.Data.Length} users");
         }
 
         return result?.Data;
@@ -58,10 +60,10 @@ public class UserService : IUserService
             $"{_options.Host}{_userApi}",
             HttpMethod.Post,
             new UserRequest()
-        {
-            Job = job,
-            Name = name
-        });
+            {
+                Job = job,
+                Name = name
+            });
 
         if (result != null)
         {
