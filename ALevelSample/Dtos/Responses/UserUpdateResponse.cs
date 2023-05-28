@@ -10,7 +10,6 @@ namespace ALevelSample.Dtos.Responses
     {
         public string Name { get; set; }
         public string Job { get; set; }
-        public int Id { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
     }
 }

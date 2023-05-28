@@ -90,7 +90,7 @@ public class UserService : IUserService
 
         if (result != null)
         {
-            _logger.LogInformation($"User updated - {result.Name}");
+            _logger.LogInformation($"User updated at {result.UpdatedAt.DateTime}");
         }
 
         return result;
