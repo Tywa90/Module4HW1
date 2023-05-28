@@ -22,6 +22,9 @@ public class App
         var user23 = await _userService.GetUserById(23);
 
         var resourceSingle = await _resourceService.GetResourceSingle(2);
-        var resourceList = await _resourceService.GetResourseList(2);
+        var resourceList = await _resourceService.GetResourceList(2);
+        var resourceSingle23 = await _resourceService.GetResourceSingle(23);
+
+        var user3 = await _userService.UpdateUserPut("morpheus", "bosss", 2);
     }
 }

@@ -40,19 +40,19 @@ public class ResourceService : IResourceService
         }
         else
         {
-            _logger.LogWarning($"User with id = {id} was not found");
+            _logger.LogWarning($"Resource with id = {id} was not found");
         }
 
         return result?.Data;
     }
 
-    public async Task<ResourceDto[]> GetResourseList(int page)
+    public async Task<ResourceDto[]> GetResourceList(int page)
     {
         var result = await _httpClientService.SendAsync<ResourceListResponce<ResourceDto>, object>($"{_options.Host}{_userApiList}{page}", HttpMethod.Get);
 
         if (result?.Data != null)
         {
-            _logger.LogInformation($"Total resourses = {result.Total}. Resourses on page {page} = {result.Data.Length}");
+            _logger.LogInformation($"Total resources = {result.Total}. Resources on page {page} = {result.Data.Length}");
         }
 
         return result?.Data;

@@ -7,5 +7,5 @@ namespace ALevelSample.Services.Abstractions;
 public interface IResourceService
 {
     Task<ResourceDto> GetResourceSingle(int id);
-    Task<ResourceDto[]> GetResourseList(int page);
+    Task<ResourceDto[]> GetResourceList(int page);
 }

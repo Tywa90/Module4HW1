@@ -76,4 +76,23 @@ public class UserService : IUserService
 
         return result;
     }
+
+    public async Task<UserUpdateResponse> UpdateUserPut(string name, string job, int id)
+    {
+        var result = await _httpClientService.SendAsync<UserUpdateResponse, UserRequest>(
+            $"{_options.Host}{_userApi}{id}",
+            HttpMethod.Put,
+            new UserRequest()
+            {
+                Job = job,
+                Name = name
+            });
+
+        if (result != null)
+        {
+            _logger.LogInformation($"User updated - {result.Name}");
+        }
+
+        return result;
+    }
 }
