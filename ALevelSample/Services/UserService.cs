@@ -95,4 +95,23 @@ public class UserService : IUserService
 
         return result;
     }
+
+    public async Task<UserUpdateResponse> UpdateUserPatch(string name, string job, int id)
+    {
+        var result = await _httpClientService.SendAsync<UserUpdateResponse, UserRequest>(
+            $"{_options.Host}{_userApi}{id}",
+            HttpMethod.Patch,
+            new UserRequest()
+            {
+                Job = job,
+                Name = name
+            });
+
+        if (result != null)
+        {
+            _logger.LogInformation($"User updated(PATCH) at {result.UpdatedAt.DateTime}");
+        }
+
+        return result;
+    }
 }

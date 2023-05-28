@@ -13,4 +13,6 @@ public interface IUserService
     Task<UserResponse> CreateUser(string name, string job);
 
     Task<UserUpdateResponse> UpdateUserPut(string name, string job, int id);
+
+    Task<UserUpdateResponse> UpdateUserPatch(string name, string job, int id);
 }

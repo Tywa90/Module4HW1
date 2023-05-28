@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using ALevelSample.Services.Abstractions;
 
@@ -26,5 +27,6 @@ public class App
         var resourceSingle23 = await _resourceService.GetResourceSingle(23);
 
         var user3 = await _userService.UpdateUserPut("morpheus", "bosss", 2);
+        var user5 = await _userService.UpdateUserPatch("morpheus", "zion resident", 2);
     }
 }
