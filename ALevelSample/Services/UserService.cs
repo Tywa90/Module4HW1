@@ -114,4 +114,20 @@ public class UserService : IUserService
 
         return result;
     }
+
+    public async Task<UserDto> DeleteUser(int id)
+    {
+        var result = await _httpClientService.SendAsync<BaseResponse<UserDto>, object>($"{_options.Host}{_userApi}{id}", HttpMethod.Delete);
+
+        if (result?.Data != null)
+        {
+            _logger.LogInformation($"User was deleted");
+        }
+        else
+        {
+            _logger.LogWarning($"User with id = {id} was not deleted");
+        }
+
+        return result?.Data;
+    }
 }
