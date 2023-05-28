@@ -38,6 +38,10 @@ public class UserService : IUserService
         {
             _logger.LogInformation($"User with id = {result.Data.Id} was found");
         }
+        else
+        {
+            _logger.LogWarning($"User with id = {id} was not found");
+        }
 
         return result?.Data;
     }
