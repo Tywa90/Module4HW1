@@ -6,10 +6,12 @@ namespace ALevelSample;
 public class App
 {
     private readonly IUserService _userService;
+    private readonly IResourceService _resourceService;
 
-    public App(IUserService userService)
+    public App(IUserService userService, IResourceService resourceService)
     {
         _userService = userService;
+        _resourceService = resourceService;
     }
 
     public async Task Start()
@@ -18,5 +20,7 @@ public class App
         var userInfo = await _userService.CreateUser("morpheus", "leader");
         var userList = await _userService.GetUsersList(2);
         var user23 = await _userService.GetUserById(23);
+
+        var res = await _resourceService.GetResourceSingle(2);
     }
 }
