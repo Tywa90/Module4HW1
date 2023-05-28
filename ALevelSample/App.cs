@@ -21,6 +21,7 @@ public class App
         var userList = await _userService.GetUsersList(2);
         var user23 = await _userService.GetUserById(23);
 
-        var res = await _resourceService.GetResourceSingle(2);
+        var resourceSingle = await _resourceService.GetResourceSingle(2);
+        var resourceList = await _resourceService.GetResourseList(2);
     }
 }

@@ -7,8 +7,5 @@ namespace ALevelSample.Services.Abstractions;
 public interface IResourceService
 {
     Task<ResourceDto> GetResourceSingle(int id);
-
-    // Task<UserDto[]> GetUsersList(int page);
-
-    // Task<UserResponse> CreateUser(string name, string job);
+    Task<ResourceDto[]> GetResourseList(int page);
 }
