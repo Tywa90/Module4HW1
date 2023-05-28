@@ -8,11 +8,13 @@ public class App
 {
     private readonly IUserService _userService;
     private readonly IResourceService _resourceService;
+    private readonly IAuthentificationService _authentificationService;
 
-    public App(IUserService userService, IResourceService resourceService)
+    public App(IUserService userService, IResourceService resourceService, IAuthentificationService authentificationService)
     {
         _userService = userService;
         _resourceService = resourceService;
+        _authentificationService = authentificationService;
     }
 
     public async Task Start()
@@ -29,5 +31,7 @@ public class App
         var user3 = await _userService.UpdateUserPut("morpheus", "bosss", 2);
         var user5 = await _userService.UpdateUserPatch("morpheus", "zion resident", 2);
         var user6 = await _userService.DeleteUser(2);
+
+        var auth1 = await _authentificationService.RegisterUser("eve.holt@reqres.in", "pistol");
     }
 }
