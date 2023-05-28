@@ -7,5 +7,7 @@ namespace ALevelSample.Services.Abstractions;
 public interface IUserService
 {
     Task<UserDto> GetUserById(int id);
+    Task<UserDto> GetUsersList(int page);
+
     Task<UserResponse> CreateUser(string name, string job);
 }

@@ -16,5 +16,6 @@ public class App
     {
         var user = await _userService.GetUserById(2);
         var userInfo = await _userService.CreateUser("morpheus", "leader");
+        var userList = await _userService.GetUsersList(2);
     }
 }

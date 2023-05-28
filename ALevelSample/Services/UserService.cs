@@ -16,6 +16,7 @@ public class UserService : IUserService
     private readonly ILogger<UserService> _logger;
     private readonly ApiOption _options;
     private readonly string _userApi = "api/users/";
+    private readonly string _userList = "api/users?page=2";
 
     public UserService(
         IInternalHttpClientService httpClientService,
@@ -37,6 +38,18 @@ public class UserService : IUserService
       }
 
       return result?.Data;
+    }
+
+    public async Task<UserDto> GetUsersList(int id)
+    {
+        var result = await _httpClientService.SendAsync<BaseResponse<UserDto>, object>($"{_options.Host}{_userList}", HttpMethod.Get);
+
+        if (result?.Data != null)
+        {
+            _logger.LogInformation($"User with id = {result.Data.Id} was found");
+        }
+
+        return result?.Data;
     }
 
     public async Task<UserResponse> CreateUser(string name, string job)
