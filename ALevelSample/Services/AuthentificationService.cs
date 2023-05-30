@@ -40,9 +40,13 @@ public class AuthentificationService : IAuthentificationService
                 Password = password
             });
 
-        if (result != null)
+        if (result != null && result.Error == null)
         {
-            _logger.LogWarning($"User was successful registered with id = {result.Token}");
+            _logger.LogInformation($"Register successful with id = {result.Id}");
+        }
+        else
+        {
+            _logger.LogWarning($"Register unsuccessful:");
         }
 
         return result;

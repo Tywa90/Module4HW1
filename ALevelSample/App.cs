@@ -10,7 +10,10 @@ public class App
     private readonly IResourceService _resourceService;
     private readonly IAuthentificationService _authentificationService;
 
-    public App(IUserService userService, IResourceService resourceService, IAuthentificationService authentificationService)
+    public App(
+        IUserService userService,
+        IResourceService resourceService,
+        IAuthentificationService authentificationService)
     {
         _userService = userService;
         _resourceService = resourceService;
@@ -33,5 +36,6 @@ public class App
         var user6 = await _userService.DeleteUser(2);
 
         var auth1 = await _authentificationService.RegisterUser("eve.holt@reqres.in", "pistol");
+        var auth2 = await _authentificationService.RegisterUser("sydney@fife", null!);
     }
 }
