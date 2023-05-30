@@ -7,4 +7,5 @@ namespace ALevelSample.Services.Abstractions;
 public interface IAuthentificationService
 {
     Task<AuthResponse> RegisterUser(string email, string password);
+    Task<AuthResponse> LogInUser(string email, string password);
 }

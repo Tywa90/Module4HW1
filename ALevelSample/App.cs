@@ -26,6 +26,7 @@ public class App
         var userInfo = await _userService.CreateUser("morpheus", "leader");
         var userList = await _userService.GetUsersList(2);
         var user23 = await _userService.GetUserById(23);
+        var userDelayList = await _userService.GetUsersDelayList(3);
 
         var resourceSingle = await _resourceService.GetResourceSingle(2);
         var resourceList = await _resourceService.GetResourceList(2);
@@ -37,5 +38,7 @@ public class App
 
         var auth1 = await _authentificationService.RegisterUser("eve.holt@reqres.in", "pistol");
         var auth2 = await _authentificationService.RegisterUser("sydney@fife", null!);
+        var logInUser1 = await _authentificationService.LogInUser("eve.holt@reqres.in", "cityslicka");
+        var logInUser2 = await _authentificationService.LogInUser("peter@klaven", null!);
     }
 }

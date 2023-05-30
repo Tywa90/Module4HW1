@@ -17,4 +17,6 @@ public interface IUserService
     Task<UserUpdateResponse> UpdateUserPatch(string name, string job, int id);
 
     Task<UserDto> DeleteUser(int id);
+
+    Task<UserDto[]> GetUsersDelayList(int page);
 }

@@ -19,6 +19,7 @@ public class UserService : IUserService
     private readonly ApiOption _options;
     private readonly string _userApi = "api/users/";
     private readonly string _userList = "api/users?page=";
+    private readonly string _userDelayList = "api/users?delay=";
 
     public UserService(
         IInternalHttpClientService httpClientService,
@@ -126,6 +127,18 @@ public class UserService : IUserService
         else
         {
             _logger.LogWarning($"User with id = {id} was not deleted");
+        }
+
+        return result?.Data;
+    }
+
+    public async Task<UserDto[]> GetUsersDelayList(int delay)
+    {
+        var result = await _httpClientService.SendAsync<UserListResponse<UserDto>, object>($"{_options.Host}{_userDelayList}{delay}", HttpMethod.Get);
+
+        if (result?.Data != null)
+        {
+            _logger.LogInformation($"Delayed {delay}sec. users list");
         }
 
         return result?.Data;

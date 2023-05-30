@@ -12,17 +12,18 @@ using Microsoft.Extensions.Options;
 
 namespace ALevelSample.Services;
 
-public class AuthentificationService : IAuthentificationService
+public class LoginService : IAuthentificationService
 {
     private readonly IInternalHttpClientService _httpClientService;
-    private readonly ILogger<AuthentificationService> _logger;
+    private readonly ILogger<LoginService> _logger;
     private readonly ApiOption _options;
-    private readonly string _userApi = "api/register";
+    private readonly string _userApiReg = "api/register";
+    private readonly string _userApiLogIn = "api/login";
 
-    public AuthentificationService(
+    public LoginService(
         IInternalHttpClientService httpClientService,
         IOptions<ApiOption> options,
-        ILogger<AuthentificationService> logger)
+        ILogger<LoginService> logger)
     {
         _httpClientService = httpClientService;
         _logger = logger;
@@ -32,7 +33,7 @@ public class AuthentificationService : IAuthentificationService
     public async Task<AuthResponse> RegisterUser(string email, string password)
     {
         var result = await _httpClientService.SendAsync<AuthResponse, AuthRequest>(
-            $"{_options.Host}{_userApi}",
+            $"{_options.Host}{_userApiReg}",
             HttpMethod.Post,
             new AuthRequest()
             {
@@ -47,6 +48,29 @@ public class AuthentificationService : IAuthentificationService
         else
         {
             _logger.LogWarning($"Register unsuccessful:");
+        }
+
+        return result;
+    }
+
+    public async Task<AuthResponse> LogInUser(string email, string password)
+    {
+        var result = await _httpClientService.SendAsync<AuthResponse, AuthRequest>(
+            $"{_options.Host}{_userApiLogIn}",
+            HttpMethod.Post,
+            new AuthRequest()
+            {
+                Email = email,
+                Password = password
+            });
+
+        if (result != null && result.Error == null)
+        {
+            _logger.LogInformation($"LoggedIn successful. Token = {result.Token}");
+        }
+        else
+        {
+            _logger.LogWarning($"LogIn unsuccessful");
         }
 
         return result;
