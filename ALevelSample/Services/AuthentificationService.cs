@@ -42,7 +42,7 @@ public class AuthentificationService : IAuthentificationService
 
         if (result != null)
         {
-            _logger.LogWarning($"User was successful registered with id = ");
+            _logger.LogWarning($"User was successful registered with id = {result.Token}");
         }
 
         return result;
