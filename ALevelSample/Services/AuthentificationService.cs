@@ -47,7 +47,7 @@ public class LoginService : IAuthentificationService
         }
         else
         {
-            _logger.LogWarning($"Register unsuccessful:");
+            _logger.LogWarning($"Register unsuccessful: {result.Error}");
         }
 
         return result;
@@ -70,7 +70,7 @@ public class LoginService : IAuthentificationService
         }
         else
         {
-            _logger.LogWarning($"LogIn unsuccessful");
+            _logger.LogWarning($"LogIn unsuccessful: {result.Error}");
         }
 
         return result;
